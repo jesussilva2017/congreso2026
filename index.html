@@ -3,322 +3,546 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Senado Colombia 2026 — Preconteo en Vivo</title>
+<title>Congreso Colombia 2026 — Preconteo en Vivo</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600&family=Lato:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Code+Pro:wght@400;600&family=Lato:wght@300;400;700&display=swap');
+
 :root{
   --y:#E8A000;--b:#003580;--r:#CE1126;
-  --bg:#faf7f2;--bg2:#ffffff;--bg3:#f5f0e8;
+  --bg:#faf7f2;--bg2:#fff;--bg3:#f5f0e8;
   --bd:#e2d9cc;--bd2:#c8bfb0;
   --tx:#1a1208;--tx2:#6b5c45;--tx3:#a0917a;
-  --gr:#007a50;--or:#d4600a;
-  --shadow:rgba(60,30,0,.08);
+  --gr:#007a50;--sh:rgba(60,30,0,.08);
 }
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--tx);font-family:'Lato',sans-serif;min-height:100vh;overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Lato',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
 /* HEADER */
-.hdr{background:linear-gradient(90deg,var(--b),#00266a);border-bottom:3px solid;border-image:linear-gradient(90deg,#FCD116,var(--b),var(--r)) 1;position:sticky;top:0;z-index:100;box-shadow:0 3px 18px rgba(0,30,100,.18)}
-.hdr-in{display:flex;align-items:stretch;min-height:58px}
-.flag{display:flex;flex-direction:column;width:8px;flex-shrink:0}
+.hdr{background:linear-gradient(90deg,var(--b),#00266a);border-bottom:3px solid;border-image:linear-gradient(90deg,#FCD116,var(--b),var(--r)) 1;position:sticky;top:0;z-index:200;box-shadow:0 3px 16px rgba(0,30,100,.2)}
+.hdr-in{display:flex;align-items:stretch;min-height:54px}
+.flag{display:flex;flex-direction:column;width:7px;flex-shrink:0}
 .f1{background:#FCD116;flex:2}.f2{background:var(--b);flex:1}.f3{background:var(--r);flex:1}
-.hdr-c{display:flex;align-items:center;justify-content:space-between;flex:1;padding:10px 18px;gap:10px;flex-wrap:wrap}
-.brand h1{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;letter-spacing:3px;color:#fff;line-height:1;text-transform:uppercase}
-.brand p{font-size:.62rem;color:#FCD116;letter-spacing:4px;text-transform:uppercase;margin-top:3px}
-.live-b{display:flex;align-items:center;gap:7px;background:rgba(206,17,38,.18);border:1px solid rgba(206,17,38,.5);border-radius:4px;padding:5px 12px}
-.dot{width:8px;height:8px;background:var(--r);border-radius:50%;animation:blink 1s infinite}
+.hdr-c{display:flex;align-items:center;justify-content:space-between;flex:1;padding:8px 16px;gap:8px}
+.brand h1{font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:2.5px;color:#fff;line-height:1;text-transform:uppercase}
+.brand p{font-size:.58rem;color:#FCD116;letter-spacing:3px;text-transform:uppercase;margin-top:2px}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.live-b{display:flex;align-items:center;gap:6px;background:rgba(206,17,38,.2);border:1px solid rgba(206,17,38,.5);border-radius:4px;padding:4px 10px}
+.dot{width:7px;height:7px;background:var(--r);border-radius:50%;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.live-txt{font-family:'Oswald',sans-serif;font-size:.75rem;letter-spacing:2px;color:#fff}
-.clk{font-family:'Source Code Pro',monospace;font-size:.7rem;color:rgba(255,255,255,.6);text-align:right;line-height:1.7}
+.live-txt{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:2px;color:#fff}
+.clk{font-family:'Source Code Pro',monospace;font-size:.64rem;color:rgba(255,255,255,.5);text-align:right;line-height:1.6}
+
+/* HAMBURGER */
+.hamb{display:none;flex-direction:column;justify-content:center;gap:5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);cursor:pointer;padding:7px 8px;border-radius:5px}
+.hamb span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+.hamb.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamb.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamb.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* ALERT */
-.alert{background:linear-gradient(90deg,#fffbf0,#fff8e6);border-bottom:2px solid #f5d78a;padding:7px 18px;font-size:.7rem;font-family:'Source Code Pro',monospace;color:#7a4f00;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.alert a{color:#003580;text-decoration:underline;cursor:pointer;font-weight:700}
+.alert{background:linear-gradient(90deg,#fffbf0,#fff8e6);border-bottom:2px solid #f0d060;padding:6px 16px;font-size:.68rem;font-family:'Source Code Pro',monospace;color:#7a4f00;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.alert a{color:var(--b);text-decoration:underline;cursor:pointer;font-weight:700}
 
-/* TABS */
-.tabs{background:#fff;border-bottom:2px solid var(--bd);padding:0 18px;display:flex;gap:2px;overflow-x:auto;box-shadow:0 2px 8px var(--shadow)}
-.tab{padding:12px 16px;background:none;border:none;border-bottom:3px solid transparent;color:var(--tx2);cursor:pointer;font-family:'Oswald',sans-serif;font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;transition:all .2s}
-.tab:hover{color:var(--b)}
+/* NAVBAR DESKTOP */
+.navbar{background:#fff;border-bottom:2px solid var(--bd);box-shadow:0 2px 8px var(--sh);position:sticky;top:54px;z-index:190}
+.nav-in{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 12px;max-width:1440px;margin:0 auto}
+.nav-in::-webkit-scrollbar{display:none}
+.tab{padding:12px 14px;background:none;border:none;border-bottom:3px solid transparent;color:var(--tx2);cursor:pointer;font-family:'Oswald',sans-serif;font-size:.76rem;letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.tab:hover{color:var(--b);background:rgba(0,53,128,.03)}
 .tab.on{color:var(--b);border-bottom-color:var(--b)}
 
-/* PAGES */
-.pg{display:none;padding:18px;max-width:1440px;margin:0 auto}
+/* OVERLAY + DRAWER */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300}
+.overlay.show{display:block}
+.drawer{position:fixed;top:0;left:-285px;width:285px;height:100%;background:#fff;z-index:400;transition:left .28s ease;box-shadow:4px 0 24px rgba(0,0,0,.18);overflow-y:auto;display:flex;flex-direction:column}
+.drawer.open{left:0}
+.drw-head{background:linear-gradient(135deg,var(--b),#00266a);padding:22px 18px 18px;flex-shrink:0}
+.drw-head h2{font-family:'Oswald',sans-serif;font-size:1.1rem;letter-spacing:2px;color:#fff;text-transform:uppercase}
+.drw-head p{font-size:.6rem;color:#FCD116;letter-spacing:2px;margin-top:3px;text-transform:uppercase}
+.drw-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1rem;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.drw-sec{padding:6px 0}
+.drw-lbl{font-size:.57rem;color:var(--tx3);text-transform:uppercase;letter-spacing:2px;padding:10px 18px 3px;font-family:'Oswald',sans-serif}
+.mi{display:flex;align-items:center;gap:12px;padding:13px 18px;border:none;background:none;width:100%;text-align:left;cursor:pointer;font-family:'Lato',sans-serif;font-size:.9rem;color:var(--tx);transition:background .15s;border-left:3px solid transparent}
+.mi:hover{background:var(--bg);color:var(--b)}
+.mi.on{background:#eef3ff;color:var(--b);border-left-color:var(--b);font-weight:700}
+.mi-ic{font-size:1.1rem;width:24px;flex-shrink:0}
+.drw-div{height:1px;background:var(--bd);margin:4px 18px}
+.drw-foot{padding:14px 18px;border-top:1px solid var(--bd);margin-top:auto}
+.drw-foot a{display:flex;align-items:center;gap:7px;font-size:.78rem;color:var(--b);font-weight:700;text-decoration:none}
+
+/* PÁGINAS */
+.pg{display:none;padding:16px;max-width:1440px;margin:0 auto}
 .pg.on{display:block}
 
 /* STAT CARDS */
-.sc-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:11px;margin-bottom:18px}
-.sc{background:#fff;border:1px solid var(--bd);border-radius:6px;padding:14px;position:relative;overflow:hidden;box-shadow:0 2px 8px var(--shadow)}
+.sc-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-bottom:14px}
+.sc{background:#fff;border:1px solid var(--bd);border-radius:7px;padding:13px;position:relative;overflow:hidden;box-shadow:0 2px 8px var(--sh)}
 .sc::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.sy::after{background:#FCD116}.sb::after{background:var(--b)}.sr::after{background:var(--r)}.sg::after{background:var(--gr)}.sp::after{background:#7c5cbf}
-.sl{font-size:.62rem;color:var(--tx2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
-.sv{font-family:'Oswald',sans-serif;font-size:1.9rem;font-weight:600;line-height:1;color:var(--tx)}
-.ss{font-size:.65rem;color:var(--tx3);margin-top:3px}
-
-/* TWO COL */
-.two{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:18px}
-@media(max-width:850px){.two{grid-template-columns:1fr}}
+.sy::after{background:#FCD116}.sb::after{background:var(--b)}.sr::after{background:var(--r)}.sg::after{background:var(--gr)}.sp::after{background:#7c5cbf}.so::after{background:#d4600a}
+.sl{font-size:.6rem;color:var(--tx2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
+.sv{font-family:'Oswald',sans-serif;font-size:1.75rem;font-weight:600;line-height:1;color:var(--tx)}
+.ss{font-size:.62rem;color:var(--tx3);margin-top:3px}
 
 /* PANEL */
-.pnl{background:#fff;border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:15px;box-shadow:0 2px 10px var(--shadow)}
-.ph{padding:11px 15px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;background:#f9f5ee}
-.pt{font-family:'Oswald',sans-serif;font-size:.95rem;letter-spacing:1px;text-transform:uppercase;color:var(--b)}
-.bdg{font-family:'Source Code Pro',monospace;font-size:.58rem;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-.bdg-b{background:rgba(0,53,128,.1);color:#003580;border:1px solid rgba(0,53,128,.3)}
+.pnl{background:#fff;border:1px solid var(--bd);border-radius:7px;overflow:hidden;margin-bottom:13px;box-shadow:0 2px 10px var(--sh)}
+.ph{padding:10px 14px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;background:#f9f5ee;gap:7px;flex-wrap:wrap}
+.pt{font-family:'Oswald',sans-serif;font-size:.88rem;letter-spacing:1px;text-transform:uppercase;color:var(--b)}
+.bdg{font-family:'Source Code Pro',monospace;font-size:.55rem;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.5px;font-weight:600;white-space:nowrap}
+.bdg-b{background:rgba(0,53,128,.1);color:var(--b);border:1px solid rgba(0,53,128,.3)}
 .bdg-g{background:rgba(0,122,80,.1);color:var(--gr);border:1px solid rgba(0,122,80,.3)}
 .bdg-y{background:#fff8e0;color:#a06800;border:1px solid #f0d060}
 .bdg-r{background:rgba(206,17,38,.08);color:#b00020;border:1px solid rgba(206,17,38,.3)}
 
 /* AVANCE */
-.av-row{padding:12px 15px;border-bottom:1px solid var(--bd)}
-.av-lbl{display:flex;justify-content:space-between;font-size:.7rem;color:var(--tx2);margin-bottom:5px}
+.av-row{padding:11px 14px;border-bottom:1px solid var(--bd)}
+.av-lbl{display:flex;justify-content:space-between;font-size:.67rem;color:var(--tx2);margin-bottom:4px}
 .av-lbl strong{color:var(--gr);font-family:'Source Code Pro',monospace}
 .av-bg{background:#e8e0d4;border-radius:3px;height:7px;overflow:hidden}
 .av-fill{height:100%;background:linear-gradient(90deg,var(--b),var(--gr));border-radius:3px;transition:width 1.2s ease}
 
 /* BOTONES */
-.btn{padding:8px 14px;border-radius:5px;border:none;cursor:pointer;font-family:'Lato',sans-serif;font-size:.78rem;font-weight:700;transition:all .2s;display:inline-flex;align-items:center;gap:5px;text-decoration:none}
+.btn{padding:9px 15px;border-radius:6px;border:none;cursor:pointer;font-family:'Lato',sans-serif;font-size:.79rem;font-weight:700;transition:all .2s;display:inline-flex;align-items:center;gap:5px;text-decoration:none;white-space:nowrap}
 .btn-b{background:var(--b);color:#fff}.btn-b:hover{background:#004aad}
 .btn-y{background:#FCD116;color:var(--b)}.btn-y:hover{background:#ffe033}
 .btn-g{background:rgba(0,122,80,.1);color:var(--gr);border:1px solid rgba(0,122,80,.3)}.btn-g:hover{background:rgba(0,122,80,.18)}
-.btn-sm{padding:5px 11px;font-size:.7rem}
+.btn-r{background:rgba(206,17,38,.12);color:#b00020;border:1px solid rgba(206,17,38,.3)}.btn-r:hover{background:rgba(206,17,38,.2)}
+.btn-sm{padding:6px 11px;font-size:.71rem}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-.sel-row{display:flex;gap:9px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
-.sel-lbl{font-size:.68rem;color:var(--tx2);text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
-select{background:#fff;border:1px solid var(--bd2);color:var(--tx);padding:8px 12px;border-radius:5px;font-family:'Lato',sans-serif;font-size:.8rem;cursor:pointer;outline:none;min-width:160px}
+.sel-row{display:flex;gap:8px;align-items:center;margin-bottom:13px;flex-wrap:wrap}
+.sel-lbl{font-size:.63rem;color:var(--tx2);text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+select{background:#fff;border:1px solid var(--bd2);color:var(--tx);padding:9px 12px;border-radius:6px;font-family:'Lato',sans-serif;font-size:.8rem;cursor:pointer;outline:none}
 select:focus{border-color:var(--b)}
 
+/* CIRCUNSCRIPCIÓN PILLS */
+.pills{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.pill{padding:7px 16px;border-radius:20px;border:2px solid var(--bd);background:#fff;color:var(--tx2);cursor:pointer;font-family:'Oswald',sans-serif;font-size:.75rem;letter-spacing:1px;text-transform:uppercase;transition:all .2s;flex-shrink:0}
+.pill:hover{border-color:var(--b);color:var(--b)}
+.pill.on{background:var(--r);border-color:var(--r);color:#fff}
+
 /* PARTIDO ROW */
-.pr{display:flex;align-items:center;gap:9px;padding:9px 15px;border-bottom:1px solid #f0ece4;transition:background .15s}
+.pr{display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:1px solid #f0ece4;transition:background .15s}
 .pr:hover{background:#fdf9f3}
 .pr:last-child{border-bottom:none}
-.pn{font-family:'Source Code Pro',monospace;font-size:.68rem;color:var(--tx3);width:17px;flex-shrink:0}
+.pn{font-family:'Source Code Pro',monospace;font-size:.64rem;color:var(--tx3);width:16px;flex-shrink:0;text-align:right}
 .pdot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
 .pi{flex:1;min-width:0}
-.pname{font-size:.78rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--tx)}
-.pvotes{font-family:'Source Code Pro',monospace;font-size:.62rem;color:var(--tx2);margin-top:1px}
-.pbar{width:85px;flex-shrink:0}
+.pname{font-size:.79rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--tx)}
+.pvotes{font-family:'Source Code Pro',monospace;font-size:.61rem;color:var(--tx2);margin-top:1px}
+.pbar{width:88px;flex-shrink:0}
 .pbar-bg{background:#e8e2d8;border-radius:2px;height:5px;overflow:hidden}
 .pbar-fill{height:100%;border-radius:2px;transition:width 1.2s ease}
-.ppct{font-family:'Source Code Pro',monospace;font-size:.62rem;color:var(--tx2);text-align:right;margin-top:2px}
-.pcurl{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;width:26px;text-align:center;flex-shrink:0;color:var(--b)}
+.ppct{font-family:'Source Code Pro',monospace;font-size:.61rem;color:var(--tx2);text-align:right;margin-top:2px}
+.pcurl{font-family:'Oswald',sans-serif;font-size:.98rem;font-weight:600;width:26px;text-align:center;flex-shrink:0;color:var(--b)}
 
 /* STATE */
-.stbox{padding:40px 18px;text-align:center;color:var(--tx2)}
-.sticon{font-size:2rem;margin-bottom:10px}
+.stbox{padding:38px 16px;text-align:center;color:var(--tx2)}
+.sticon{font-size:2.1rem;margin-bottom:10px}
 .sttit{font-size:.88rem;font-weight:700;margin-bottom:7px;color:var(--tx)}
-.stsub{font-size:.73rem;line-height:1.7;color:var(--tx3)}
+.stsub{font-size:.74rem;line-height:1.8;color:var(--tx3)}
 .spin{width:28px;height:28px;border:3px solid #e0d8cc;border-top-color:var(--b);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* DPTOS GRID */
-.dg{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:7px}
-.dt{background:#fff;border:1px solid var(--bd);border-radius:5px;padding:9px 11px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;box-shadow:0 1px 4px var(--shadow)}
+/* DOS COLUMNAS */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px}
+
+/* DPTOS */
+.dg{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:7px}
+.dt{background:#fff;border:1px solid var(--bd);border-radius:6px;padding:9px 10px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;box-shadow:0 1px 4px var(--sh)}
 .dt::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:#e0d8cc;transition:background .2s}
-.dt:hover{border-color:var(--b);background:#f0f4ff}
-.dt:hover::before{background:var(--b)}
-.dt.star{border-color:rgba(0,122,80,.35);background:#f0fff8}
-.dt.star::before{background:var(--gr)}
-.dt.star:hover{border-color:var(--b)}
-.dn{font-size:.75rem;font-weight:700;padding-left:6px;color:var(--tx)}
-.dc{font-size:.6rem;color:var(--tx3);padding-left:6px;margin-top:1px}
+.dt:hover{border-color:var(--b);background:#f0f4ff}.dt:hover::before{background:var(--b)}
+.dt.star{border-color:rgba(0,122,80,.4);background:#f0fff8}.dt.star::before{background:var(--gr)}
+.dn{font-size:.74rem;font-weight:700;padding-left:7px;color:var(--tx)}
+.dc{font-size:.59rem;color:var(--tx3);padding-left:7px;margin-top:1px}
 .db{margin-top:5px;height:3px;background:#e8e2d8;border-radius:2px;overflow:hidden}
 .dbf{height:100%;border-radius:2px}
 
-/* HUILA */
-.huila-hero{background:linear-gradient(135deg,#e8fff5,#edf4ff);border:1px solid rgba(0,122,80,.25);border-radius:6px;padding:18px;margin-bottom:15px;display:flex;align-items:center;gap:15px;box-shadow:0 2px 10px var(--shadow)}
-.hi h2{font-family:'Oswald',sans-serif;font-size:1.8rem;letter-spacing:2px;color:var(--gr)}
-.hi p{font-size:.72rem;color:var(--tx2);margin-top:2px}
+/* HUILA HERO */
+.hh{background:linear-gradient(135deg,#e8fff5,#edf4ff);border:1px solid rgba(0,122,80,.25);border-radius:8px;padding:18px;margin-bottom:13px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 10px var(--sh)}
+.hi h2{font-family:'Oswald',sans-serif;font-size:1.75rem;letter-spacing:2px;color:var(--gr)}
+.hi p{font-size:.71rem;color:var(--tx2);margin-top:2px}
 
 /* MUNICIPIOS */
-.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:7px}
-.mt{background:#fff;border:1px solid var(--bd);border-radius:5px;padding:10px 12px;cursor:pointer;transition:all .2s;box-shadow:0 1px 4px var(--shadow)}
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:7px}
+.mt{background:#fff;border:1px solid var(--bd);border-radius:6px;padding:10px 12px;cursor:pointer;transition:all .2s;box-shadow:0 1px 4px var(--sh)}
 .mt:hover{border-color:var(--gr);background:#f0fff8}
-.mt.cap{border-color:rgba(0,122,80,.35);background:#f5fffb}
-.mname{font-size:.78rem;font-weight:700;color:var(--tx)}
+.mt.cap{border-color:rgba(0,122,80,.4);background:#f0fff8}
+.mname{font-size:.79rem;font-weight:700;color:var(--tx)}
 .minfo{display:flex;justify-content:space-between;margin-top:4px}
 .mgo{font-size:.62rem;color:var(--gr)}
-.mtag{font-size:.58rem;color:var(--tx3)}
+.mtag{font-size:.57rem;color:var(--tx3)}
 
 /* IFRAME */
-.ifw{background:#fff;border:1px solid var(--bd);border-radius:6px;overflow:hidden;margin-bottom:18px;box-shadow:0 2px 10px var(--shadow)}
-.ifh{padding:9px 15px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;background:#f9f5ee}
-.iftit{font-family:'Oswald',sans-serif;font-size:.88rem;color:var(--b);letter-spacing:1px}
-.ifsub{font-size:.62rem;color:var(--tx3)}
-iframe{width:100%;height:580px;border:none;background:#fff}
+.ifw{background:#fff;border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-bottom:14px;box-shadow:0 2px 10px var(--sh)}
+.ifh{padding:10px 14px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;background:#f9f5ee;flex-wrap:wrap;gap:6px}
+.iftit{font-family:'Oswald',sans-serif;font-size:.86rem;color:var(--b);letter-spacing:1px}
+.ifsub{font-size:.61rem;color:var(--tx3)}
+iframe{width:100%;height:570px;border:none;background:#fff}
 
 /* NOTICE */
-.notice{background:#fffbee;border:1px solid #f0d878;border-radius:5px;padding:11px 15px;font-size:.74rem;color:#5a4200;line-height:1.6;margin-bottom:14px}
+.notice{background:#fffbee;border:1px solid #f0d878;border-radius:6px;padding:10px 14px;font-size:.73rem;color:#5a4200;line-height:1.6;margin-bottom:13px}
 .notice strong{color:#a06800}
 
 /* IA */
-.ai-box{background:#f9f5ee;border:1px solid #e0d4b8;border-radius:5px;padding:14px;font-size:.8rem;line-height:1.8;white-space:pre-wrap;min-height:80px;margin-top:9px;color:var(--tx)}
+.ai-box{background:#f9f5ee;border:1px solid #e0d4b8;border-radius:6px;padding:14px;font-size:.81rem;line-height:1.85;white-space:pre-wrap;min-height:100px;margin-top:10px;color:var(--tx)}
 .ai-box.dim{color:var(--tx2)}
-.ai-qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px;margin-bottom:11px}
+.ai-qg{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:7px;margin-bottom:11px}
 
 /* FUENTES */
-.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px}
-.sc2{display:flex;align-items:center;gap:9px;padding:12px 14px;background:#fff;border:1px solid var(--bd);border-radius:5px;text-decoration:none;color:var(--tx);transition:all .2s;box-shadow:0 1px 4px var(--shadow)}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:8px}
+.sc2{display:flex;align-items:center;gap:9px;padding:11px 13px;background:#fff;border:1px solid var(--bd);border-radius:6px;text-decoration:none;color:var(--tx);transition:all .2s;box-shadow:0 1px 4px var(--sh)}
 .sc2:hover{border-color:var(--b);background:#f0f4ff}
-.sn{font-size:.78rem;font-weight:700;color:var(--tx)}.sd{font-size:.62rem;color:var(--tx3)}.sa{color:var(--b);margin-left:auto}
+.sn{font-size:.77rem;font-weight:700;color:var(--tx)}.sd{font-size:.61rem;color:var(--tx3)}.sa{color:var(--b);margin-left:auto}
 
-@media(max-width:600px){.pg{padding:10px}.sc-row{grid-template-columns:1fr 1fr}.brand h1{font-size:1.1rem}}
+/* ════════════ RESPONSIVE ════════════ */
+@media(max-width:900px){
+  .two{grid-template-columns:1fr}
+  .sc-row{grid-template-columns:repeat(2,1fr)}
+  iframe{height:440px}
+}
+
+@media(max-width:640px){
+  /* Header */
+  .hdr-c{padding:7px 12px}
+  .brand h1{font-size:1.05rem;letter-spacing:1.5px}
+  .brand p{display:none}
+  .clk{display:none}
+  .hamb{display:flex}
+  /* Ocultar tabs desktop */
+  .navbar{display:none}
+  /* Alert */
+  .alert{padding:5px 12px;font-size:.61rem;gap:6px}
+  /* Páginas */
+  .pg{padding:11px 10px}
+  /* Stats 2x */
+  .sc-row{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:11px}
+  .sc{padding:11px 10px}
+  .sl{font-size:.56rem;letter-spacing:1px}
+  .sv{font-size:1.35rem}
+  .ss{font-size:.59rem}
+  /* Panel */
+  .ph{padding:9px 12px}
+  .pt{font-size:.8rem}
+  .bdg{font-size:.5rem;padding:2px 5px}
+  /* Avance */
+  .av-row{padding:9px 12px}
+  .av-lbl{font-size:.64rem}
+  /* Partidos — ocultar barra en mobile */
+  .pbar{display:none}
+  .pr{padding:8px 12px;gap:7px}
+  .pname{font-size:.77rem}
+  .pvotes{font-size:.59rem}
+  .pcurl{font-size:.82rem;width:22px}
+  .pn{width:13px}
+  /* Pills */
+  .pills{gap:5px}
+  .pill{padding:6px 12px;font-size:.7rem}
+  /* Botones / select */
+  .sel-row{flex-direction:column;align-items:stretch;gap:7px}
+  .sel-row .btn,.sel-row a.btn{justify-content:center;width:100%}
+  select{width:100%}
+  .btn-sm{padding:8px 12px;font-size:.73rem}
+  /* Dptos */
+  .dg{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:5px}
+  .dt{padding:8px}
+  .dn{font-size:.7rem}
+  .dc{font-size:.56rem}
+  /* Munis */
+  .mg{grid-template-columns:1fr 1fr;gap:5px}
+  .mt{padding:9px 10px}
+  .mname{font-size:.75rem}
+  /* Huila hero */
+  .hh{flex-direction:column;align-items:flex-start;padding:13px;gap:8px}
+  .hi h2{font-size:1.3rem;letter-spacing:1.5px}
+  .hi p{font-size:.67rem}
+  /* Iframe */
+  iframe{height:330px}
+  .ifh{padding:8px 11px}
+  .ifsub{display:none}
+  /* Notice */
+  .notice{padding:9px 11px;font-size:.7rem}
+  /* IA */
+  .ai-qg{grid-template-columns:1fr 1fr;gap:5px}
+  .ai-box{font-size:.76rem;padding:11px}
+  /* Fuentes */
+  .sg{grid-template-columns:1fr}
+  .sc2{padding:10px 12px}
+}
+
+@media(max-width:360px){
+  .brand h1{font-size:.9rem}
+  .sv{font-size:1.15rem}
+  .ai-qg{grid-template-columns:1fr}
+  .dg{grid-template-columns:repeat(auto-fill,minmax(88px,1fr))}
+  .pill{padding:5px 10px;font-size:.66rem}
+}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-in">
     <div class="flag"><div class="f1"></div><div class="f2"></div><div class="f3"></div></div>
     <div class="hdr-c">
       <div class="brand">
-        <h1>Senado 2026 · Preconteo En Vivo</h1>
+        <h1>Congreso 2026 · Preconteo</h1>
         <p>República de Colombia · 8 de Marzo de 2026</p>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <div class="hdr-r">
         <div class="live-b"><div class="dot"></div><span class="live-txt">LIVE</span></div>
-        <div class="clk" id="clk">--:--:--</div>
+        <div class="clk" id="clk">--:--:--<br>---</div>
+        <button class="hamb" id="hambBtn" onclick="toggleDrawer()" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ALERT -->
 <div class="alert">
-  ⚡ Preconteo inicia a las <strong>4:00 PM</strong> · Boletines cada 5 min · Orden: Consultas → <strong>Senado</strong> → Cámara ·
-  <a onclick="window.open('https://resultadospreccongreso.registraduria.gov.co/senado/0','_blank')">→ Portal Oficial</a>
+  ⚡ Preconteo desde las <strong>4:00 PM</strong> · Boletines cada 5 min ·
+  <a onclick="window.open('https://resultadospreccongreso.registraduria.gov.co/senado/0','_blank')">→ Registraduría Oficial</a>
 </div>
 
-<div class="tabs">
-  <button class="tab on" onclick="goTab('senado',this)">🏛️ Senado</button>
-  <button class="tab" onclick="goTab('dptos',this)">🗺️ Departamentos</button>
-  <button class="tab" onclick="goTab('huila',this)">🏔️ Huila</button>
-  <button class="tab" onclick="goTab('munis',this)">🏘️ Municipios Huila</button>
-  <button class="tab" onclick="goTab('visor',this)">📺 Visor Oficial</button>
-  <button class="tab" onclick="goTab('ia',this)">🤖 Análisis IA</button>
+<!-- NAVBAR DESKTOP -->
+<nav class="navbar">
+  <div class="nav-in">
+    <button class="tab on" onclick="goTab('senado',this)">🏛️ Senado</button>
+    <button class="tab"    onclick="goTab('camara',this)">🏟️ Cámara</button>
+    <button class="tab"    onclick="goTab('dptos',this)">🗺️ Departamentos</button>
+    <button class="tab"    onclick="goTab('huila',this)">🏔️ Huila</button>
+    <button class="tab"    onclick="goTab('munis',this)">🏘️ Municipios Huila</button>
+    <button class="tab"    onclick="goTab('visor',this)">📺 Visor Oficial</button>
+    <button class="tab"    onclick="goTab('ia',this)">🤖 Análisis IA</button>
+  </div>
+</nav>
+
+<!-- DRAWER MÓVIL -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drw-head" style="position:relative">
+    <h2>Congreso 2026</h2>
+    <p>República de Colombia</p>
+    <button class="drw-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drw-sec">
+    <div class="drw-lbl">Resultados</div>
+    <button class="mi on" id="mi-senado" onclick="goTab('senado',null);closeDrawer()">
+      <span class="mi-ic">🏛️</span>Senado de la República
+    </button>
+    <button class="mi" id="mi-camara" onclick="goTab('camara',null);closeDrawer()">
+      <span class="mi-ic">🏟️</span>Cámara de Representantes
+    </button>
+  </div>
+  <div class="drw-div"></div>
+  <div class="drw-sec">
+    <div class="drw-lbl">Por Territorio</div>
+    <button class="mi" id="mi-dptos" onclick="goTab('dptos',null);closeDrawer()">
+      <span class="mi-ic">🗺️</span>Departamentos
+    </button>
+    <button class="mi" id="mi-huila" onclick="goTab('huila',null);closeDrawer()">
+      <span class="mi-ic">🏔️</span>Huila
+    </button>
+    <button class="mi" id="mi-munis" onclick="goTab('munis',null);closeDrawer()">
+      <span class="mi-ic">🏘️</span>Municipios del Huila
+    </button>
+  </div>
+  <div class="drw-div"></div>
+  <div class="drw-sec">
+    <div class="drw-lbl">Herramientas</div>
+    <button class="mi" id="mi-visor" onclick="goTab('visor',null);closeDrawer()">
+      <span class="mi-ic">📺</span>Visor Oficial
+    </button>
+    <button class="mi" id="mi-ia" onclick="goTab('ia',null);closeDrawer()">
+      <span class="mi-ic">🤖</span>Análisis IA
+    </button>
+  </div>
+  <div class="drw-foot">
+    <a href="https://resultadospreccongreso.registraduria.gov.co" target="_blank">
+      🔗 Portal Oficial Registraduría →
+    </a>
+  </div>
 </div>
 
-<!-- ── SENADO ── -->
+<!-- ══════ 1. SENADO ══════ -->
 <div class="pg on" id="pg-senado">
-  <div class="notice"><strong>Senado de la República 2026</strong> — 100 curules nacionales + 2 indígenas = 102 senadores. Umbral: 3% de votos válidos. Sistema D'Hondt. Los boletines se emiten cada 5 minutos desde las 4:00 PM.</div>
-
+  <div class="notice"><strong>Senado de la República 2026</strong> — 100 curules circunscripción nacional + 2 indígenas = 102 senadores. Umbral: 3% de votos válidos. Sistema D'Hondt. Boletines desde las 4:00 PM.</div>
   <div class="sc-row">
-    <div class="sc sy"><div class="sl">Mesas Habilitadas</div><div class="sv">125.259</div><div class="ss">13.746 puestos de votación</div></div>
+    <div class="sc sy"><div class="sl">Mesas Habilitadas</div><div class="sv">125.259</div><div class="ss">13.746 puestos</div></div>
     <div class="sc sb"><div class="sl">Censo Electoral</div><div class="sv">41,3M</div><div class="ss">Ciudadanos habilitados</div></div>
     <div class="sc sr"><div class="sl">Curules Senado</div><div class="sv">102</div><div class="ss">100 nac. + 2 indígenas</div></div>
-    <div class="sc sg"><div class="sl">Mesas Informadas</div><div class="sv" id="sv-mesas">—</div><div class="ss" id="ss-mesas">Esperando datos</div></div>
-    <div class="sc sp"><div class="sl">Boletín</div><div class="sv" id="sv-bol">#—</div><div class="ss" id="ss-bol">Sin datos aún</div></div>
+    <div class="sc sg"><div class="sl">Mesas Informadas</div><div class="sv" id="s-m">—</div><div class="ss" id="s-ms">Esperando datos</div></div>
+    <div class="sc sp"><div class="sl">Boletín</div><div class="sv" id="s-b">#—</div><div class="ss" id="s-bs">Sin datos</div></div>
   </div>
-
-  <div class="pnl">
-    <div class="av-row">
-      <div class="av-lbl"><span>Avance del Preconteo</span><strong id="av-pct">0%</strong></div>
-      <div class="av-bg"><div class="av-fill" id="av-fill" style="width:0%"></div></div>
-    </div>
-  </div>
-
+  <div class="pnl"><div class="av-row">
+    <div class="av-lbl"><span>Avance preconteo Senado</span><strong id="s-pct">0%</strong></div>
+    <div class="av-bg"><div class="av-fill" id="s-fill" style="width:0%"></div></div>
+  </div></div>
   <div class="sel-row">
-    <button class="btn btn-b" id="btn-cargar" onclick="cargarSenado()">⟳ Cargar Resultados</button>
-    <button class="btn btn-y" onclick="window.open('https://resultadospreccongreso.registraduria.gov.co/senado/0','_blank')">📊 Registraduría →</button>
-    <span id="last-upd" style="font-family:'Source Code Pro',monospace;font-size:.65rem;color:var(--tx3)"></span>
+    <button class="btn btn-b" id="btn-s" onclick="cargar('senado')">⟳ Cargar Resultados</button>
+    <a class="btn btn-y" href="https://resultadospreccongreso.registraduria.gov.co/senado/0" target="_blank">📊 Registraduría →</a>
+    <span id="s-upd" style="font-family:'Source Code Pro',monospace;font-size:.62rem;color:var(--tx3)"></span>
   </div>
-
   <div class="pnl">
-    <div class="ph"><span class="pt">Resultados por Partido — Senado</span><span class="bdg bdg-b" id="bol-bdg">CARGANDO...</span></div>
-    <div id="senado-body">
-      <div class="stbox">
-        <div class="sticon">🏛️</div>
-        <div class="sttit">Presiona "Cargar Resultados"</div>
-        <div class="stsub">Se conectará con el preconteo oficial de la Registraduría<br>y extraerá los datos en tiempo real.<br><br>Disponible desde las <strong style="color:var(--y)">4:00 PM</strong>.</div>
-      </div>
+    <div class="ph"><span class="pt">Resultados — Senado Nacional</span><span class="bdg bdg-b" id="s-bdg">PRECONTEO 2026</span></div>
+    <div id="s-body">
+      <div class="stbox"><div class="sticon">🏛️</div><div class="sttit">Presiona "Cargar Resultados"</div>
+      <div class="stsub">Conecta con el preconteo oficial en tiempo real.<br>Disponible desde las <strong style="color:#a06800">4:00 PM</strong>.</div></div>
     </div>
   </div>
 </div>
 
-<!-- ── DEPARTAMENTOS ── -->
-<div class="pg" id="pg-dptos">
-  <div class="notice"><strong>Departamentos de Colombia</strong> — El Senado es circunscripción nacional. Haz clic en cada departamento para ver sus resultados en la Registraduría.</div>
-  <div class="pnl" style="padding:14px"><div class="dg" id="dg"></div></div>
+<!-- ══════ 2. CÁMARA ══════ -->
+<div class="pg" id="pg-camara">
+  <div class="notice"><strong>Cámara de Representantes 2026</strong> — 166 curules territoriales + especiales + 16 CITREP = <strong>188 representantes</strong>. El Huila elige <strong>3 representantes</strong> por circunscripción 41.</div>
+
+  <div class="pills" id="circ-pills">
+    <button class="pill on" onclick="switchCirc('nacional',this)">🇨🇴 Nacional</button>
+    <button class="pill"    onclick="switchCirc('huila',this)">🏔️ Huila (41)</button>
+    <button class="pill"    onclick="switchCirc('antioquia',this)">Antioquia (05)</button>
+    <button class="pill"    onclick="switchCirc('bogota',this)">Bogotá (11)</button>
+    <button class="pill"    onclick="switchCirc('valle',this)">Valle (76)</button>
+  </div>
+
+  <div class="sc-row">
+    <div class="sc sr"><div class="sl">Curules Totales</div><div class="sv">188</div><div class="ss">Cámara de Representantes</div></div>
+    <div class="sc sy"><div class="sl">Territoriales</div><div class="sv">166</div><div class="ss">Por departamentos</div></div>
+    <div class="sc so"><div class="sl">Curules Huila</div><div class="sv">3</div><div class="ss">Circunscripción 41</div></div>
+    <div class="sc sg"><div class="sl">Mesas Informadas</div><div class="sv" id="c-m">—</div><div class="ss" id="c-ms">Esperando datos</div></div>
+    <div class="sc sp"><div class="sl">Boletín</div><div class="sv" id="c-b">#—</div><div class="ss" id="c-bs">Sin datos</div></div>
+  </div>
+  <div class="pnl"><div class="av-row">
+    <div class="av-lbl"><span>Avance preconteo Cámara</span><strong id="c-pct">0%</strong></div>
+    <div class="av-bg"><div class="av-fill" id="c-fill" style="width:0%"></div></div>
+  </div></div>
+  <div class="sel-row">
+    <button class="btn btn-r" id="btn-c" onclick="cargar('camara')">⟳ Cargar Resultados</button>
+    <a class="btn btn-y" href="https://resultadospreccongreso.registraduria.gov.co/camara/0" target="_blank">📊 Cámara Nacional →</a>
+    <a class="btn btn-g btn-sm" href="https://resultadospreccongreso.registraduria.gov.co/camara/41" target="_blank">🏔️ Cámara Huila →</a>
+    <span id="c-upd" style="font-family:'Source Code Pro',monospace;font-size:.62rem;color:var(--tx3)"></span>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="pt" id="c-tit">Resultados — Cámara Nacional</span><span class="bdg bdg-r" id="c-bdg">PRECONTEO 2026</span></div>
+    <div id="c-body">
+      <div class="stbox"><div class="sticon">🏟️</div><div class="sttit">Presiona "Cargar Resultados"</div>
+      <div class="stsub">Selecciona circunscripción (Nacional, Huila, etc.) y carga los datos.<br>Disponible desde las <strong style="color:#a06800">4:00 PM</strong>.</div></div>
+    </div>
+  </div>
 </div>
 
-<!-- ── HUILA ── -->
+<!-- ══════ 3. DEPARTAMENTOS ══════ -->
+<div class="pg" id="pg-dptos">
+  <div class="notice"><strong>Departamentos de Colombia</strong> — El Senado es circunscripción nacional. La Cámara es por departamento. Haz clic para abrir en Registraduría.</div>
+  <div class="sel-row">
+    <span class="sel-lbl">Acceso rápido:</span>
+    <select onchange="if(this.value){window.open(this.value,'_blank');this.selectedIndex=0}">
+      <option value="">— Selecciona circunscripción —</option>
+      <option value="https://resultadospreccongreso.registraduria.gov.co/senado/0">🏛️ Senado Nacional</option>
+      <option value="https://resultadospreccongreso.registraduria.gov.co/camara/0">🏟️ Cámara Nacional</option>
+      <option value="https://resultadospreccongreso.registraduria.gov.co/camara/41">🏔️ Cámara Huila</option>
+      <option value="https://resultadospreccongreso.registraduria.gov.co/camara/05">Cámara Antioquia</option>
+      <option value="https://resultadospreccongreso.registraduria.gov.co/camara/11">Cámara Bogotá</option>
+      <option value="https://resultadospreccongreso.registraduria.gov.co/camara/76">Cámara Valle del Cauca</option>
+    </select>
+  </div>
+  <div class="pnl" style="padding:13px"><div class="dg" id="dg"></div></div>
+</div>
+
+<!-- ══════ 4. HUILA ══════ -->
 <div class="pg" id="pg-huila">
-  <div class="huila-hero">
-    <span style="font-size:2.5rem">🏔️</span>
+  <div class="hh">
+    <span style="font-size:2.6rem">🏔️</span>
     <div class="hi"><h2>Departamento del Huila</h2><p>Capital: Neiva · 37 municipios · Código DANE: 41 · Región Andina Sur</p></div>
   </div>
   <div class="sc-row">
-    <div class="sc sg"><div class="sl">Municipios</div><div class="sv">37</div><div class="ss">Huila</div></div>
-    <div class="sc sy"><div class="sl">Curules Cámara</div><div class="sv">3</div><div class="ss">Circunscripción Huila</div></div>
-    <div class="sc sb"><div class="sl">Capital</div><div class="sv" style="font-size:1rem;padding-top:6px">Neiva</div><div class="ss">Ciudad más poblada</div></div>
+    <div class="sc sg"><div class="sl">Municipios</div><div class="sv">37</div><div class="ss">Departamento del Huila</div></div>
+    <div class="sc sy"><div class="sl">Curules Cámara</div><div class="sv">3</div><div class="ss">Circunscripción 41</div></div>
+    <div class="sc sb"><div class="sl">Capital</div><div class="sv" style="font-size:1rem;padding-top:5px">Neiva</div><div class="ss">Ciudad más poblada</div></div>
     <div class="sc sr"><div class="sl">Puestos Votación</div><div class="sv">~680</div><div class="ss">Departamental</div></div>
   </div>
   <div class="two">
     <div class="pnl">
-      <div class="ph"><span class="pt">Senado en Huila</span><span class="bdg bdg-g">CIRCUNSCRIPCIÓN NACIONAL</span></div>
-      <div id="huila-senado">
-        <div class="stbox"><div class="sticon">📡</div><div class="sttit">Carga primero los datos nacionales</div>
-        <div class="stsub">El Senado consolida votos nacionales.<br>Los del Huila suman al total.<br><br>
-        <button class="btn btn-g btn-sm" onclick="cargarSenado();goTab('senado',null)">⟳ Cargar Senado Nacional</button></div></div>
+      <div class="ph"><span class="pt">Senado — Votos del Huila</span><span class="bdg bdg-b">CIRC. NACIONAL</span></div>
+      <div id="h-senado">
+        <div class="stbox"><div class="sticon">📡</div><div class="sttit">Carga primero el Senado</div>
+        <div class="stsub">Los votos del Huila contribuyen al total nacional.<br><br>
+        <button class="btn btn-b btn-sm" onclick="cargar('senado');goTab('senado',null)">⟳ Cargar Senado</button></div></div>
       </div>
     </div>
     <div class="pnl">
-      <div class="ph"><span class="pt">Accesos Rápidos</span><span class="bdg bdg-y">OFICIAL</span></div>
-      <div style="padding:14px;display:flex;flex-direction:column;gap:8px">
-        <a class="sc2" href="https://resultadospreccongreso.registraduria.gov.co/senado/0" target="_blank">
-          <span>🏛️</span><div><div class="sn">Senado Nacional — Preconteo</div><div class="sd">resultadospreccongreso.registraduria.gov.co</div></div><span class="sa">→</span>
-        </a>
-        <a class="sc2" href="https://resultadospreccongreso.registraduria.gov.co/camara/41" target="_blank">
-          <span>🏔️</span><div><div class="sn">Cámara — Huila (Código 41)</div><div class="sd">3 representantes del Huila</div></div><span class="sa">→</span>
-        </a>
-        <a class="sc2" href="https://escrutinioscongreso2026.registraduria.gov.co" target="_blank">
-          <span>⚖️</span><div><div class="sn">Escrutinios Oficiales 2026</div><div class="sd">Resultados con validez legal</div></div><span class="sa">→</span>
-        </a>
+      <div class="ph"><span class="pt">Cámara — Huila (Circ. 41)</span><span class="bdg bdg-r">3 CURULES</span></div>
+      <div id="h-camara">
+        <div class="stbox"><div class="sticon">🏟️</div><div class="sttit">Carga primero la Cámara</div>
+        <div class="stsub">Circunscripción territorial del Huila.<br><br>
+        <button class="btn btn-r btn-sm" onclick="switchCirc('huila',document.querySelector('.pill:nth-child(2)'));cargar('camara');goTab('camara',null)">⟳ Cargar Cámara Huila</button></div></div>
       </div>
+    </div>
+  </div>
+  <div class="pnl">
+    <div class="ph"><span class="pt">Accesos Directos</span><span class="bdg bdg-y">REGISTRADURÍA OFICIAL</span></div>
+    <div style="padding:13px;display:flex;flex-direction:column;gap:8px">
+      <a class="sc2" href="https://resultadospreccongreso.registraduria.gov.co/senado/0" target="_blank">
+        <span>🏛️</span><div><div class="sn">Senado Nacional — Preconteo</div><div class="sd">Incluye votos del Huila</div></div><span class="sa">→</span>
+      </a>
+      <a class="sc2" href="https://resultadospreccongreso.registraduria.gov.co/camara/41" target="_blank">
+        <span>🏔️</span><div><div class="sn">Cámara — Circunscripción Huila (41)</div><div class="sd">3 representantes elegidos por Huila</div></div><span class="sa">→</span>
+      </a>
+      <a class="sc2" href="https://escrutinioscongreso2026.registraduria.gov.co" target="_blank">
+        <span>⚖️</span><div><div class="sn">Escrutinios Oficiales 2026</div><div class="sd">Resultados con validez legal</div></div><span class="sa">→</span>
+      </a>
     </div>
   </div>
 </div>
 
-<!-- ── MUNICIPIOS ── -->
+<!-- ══════ 5. MUNICIPIOS ══════ -->
 <div class="pg" id="pg-munis">
-  <div class="notice"><strong>37 municipios del Huila</strong> — Haz clic para abrir los resultados en la Registraduría. El Senado es nacional; para votos locales en Cámara el código de Huila es 41.</div>
+  <div class="notice"><strong>37 municipios del Huila</strong> — Haz clic en cualquier municipio para abrir sus resultados de Cámara en la Registraduría (circunscripción 41).</div>
   <div class="mg" id="mg"></div>
 </div>
 
-<!-- ── VISOR ── -->
+<!-- ══════ 6. VISOR ══════ -->
 <div class="pg" id="pg-visor">
   <div class="sel-row">
     <span class="sel-lbl">Portal:</span>
     <select id="vis-sel" onchange="updVisor()">
-      <option value="https://resultadospreccongreso.registraduria.gov.co/senado/0">Senado — Preconteo Nacional</option>
-      <option value="https://resultadospreccongreso.registraduria.gov.co/camara/41">Cámara — Huila (Circ. 41)</option>
-      <option value="https://resultadospreccongreso.registraduria.gov.co/camara/0">Cámara — Nacional</option>
-      <option value="https://escrutinioscongreso2026.registraduria.gov.co">Escrutinios Oficiales 2026</option>
-      <option value="https://divulgacione14congreso.registraduria.gov.co/home">Actas E-14 Delegados</option>
+      <option value="https://resultadospreccongreso.registraduria.gov.co/senado/0">🏛️ Senado — Preconteo Nacional</option>
+      <option value="https://resultadospreccongreso.registraduria.gov.co/camara/41">🏔️ Cámara — Huila (Circ. 41)</option>
+      <option value="https://resultadospreccongreso.registraduria.gov.co/camara/0">🏟️ Cámara — Nacional</option>
+      <option value="https://escrutinioscongreso2026.registraduria.gov.co">⚖️ Escrutinios Oficiales</option>
+      <option value="https://divulgacione14congreso.registraduria.gov.co/home">📄 Actas E-14 Delegados</option>
+      <option value="https://divulgacione14congresot.registraduria.gov.co/home">📋 Actas E-14 Transmisión</option>
     </select>
     <button class="btn btn-y btn-sm" onclick="window.open(document.getElementById('vis-sel').value,'_blank')">↗ Nueva pestaña</button>
   </div>
   <div class="ifw">
-    <div class="ifh"><span class="iftit" id="if-tit">Preconteo Senado 2026 — Registraduría</span><span class="ifsub">Registraduría Nacional del Estado Civil</span></div>
-    <iframe id="frm" src="https://resultadospreccongreso.registraduria.gov.co/senado/0" title="Preconteo" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy"></iframe>
+    <div class="ifh">
+      <span class="iftit" id="if-tit">Senado — Preconteo Nacional 2026</span>
+      <span class="ifsub">Registraduría Nacional del Estado Civil</span>
+    </div>
+    <iframe id="frm" src="https://resultadospreccongreso.registraduria.gov.co/senado/0"
+      title="Preconteo Oficial" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" loading="lazy"></iframe>
   </div>
 </div>
 
-<!-- ── IA ── -->
+<!-- ══════ 7. IA ══════ -->
 <div class="pg" id="pg-ia">
-  <div class="notice"><strong>🤖 Analista Electoral IA</strong> — Powered by Claude con búsqueda web en tiempo real. Consulta resultados, curules, histórico del Huila, sistema D'Hondt, y más.</div>
+  <div class="notice"><strong>🤖 Analista Electoral IA</strong> — Claude con búsqueda web en tiempo real. Consulta sobre Senado, Cámara, Huila, curules, D'Hondt y más.</div>
   <div class="pnl">
     <div class="ph"><span class="pt">Pregunta al Analista Electoral</span><span class="bdg bdg-g">CLAUDE AI + WEB</span></div>
     <div style="padding:14px">
-      <div class="ai-qgrid">
-        <button class="btn btn-g btn-sm" onclick="askAI('¿Cuáles son los resultados actuales del preconteo del Senado Colombia 2026? Busca en tiempo real.')">📡 Resultados en vivo</button>
-        <button class="btn btn-g btn-sm" onclick="askAI('¿Qué partidos van ganando en el Senado Colombia 2026 según el preconteo más reciente?')">🏆 ¿Quién va ganando?</button>
-        <button class="btn btn-g btn-sm" onclick="askAI('¿Cuántas curules lleva cada partido en el Senado Colombia 2026 según el preconteo?')">💺 Curules por partido</button>
-        <button class="btn btn-g btn-sm" onclick="askAI('¿Cómo va el preconteo del Senado en el departamento del Huila Colombia 2026?')">🏔️ Huila en el Senado</button>
-        <button class="btn btn-g btn-sm" onclick="askAI('Explica cómo funciona el sistema D\'Hondt para asignar las 100 curules del Senado colombiano. Ejemplo numérico.')">📐 Sistema D'Hondt</button>
-        <button class="btn btn-g btn-sm" onclick="askAI('¿Qué porcentaje de mesas se han informado en el preconteo del Senado Colombia 2026? ¿Qué boletín va?')">📊 Avance del conteo</button>
+      <div class="ai-qg">
+        <button class="btn btn-g btn-sm" onclick="askAI('¿Cuáles son los resultados actuales del preconteo del Senado Colombia 2026? Dame el boletín más reciente.')">📡 Senado en vivo</button>
+        <button class="btn btn-g btn-sm" onclick="askAI('¿Cuáles son los resultados del preconteo de la Cámara de Representantes Colombia 2026?')">🏟️ Cámara en vivo</button>
+        <button class="btn btn-g btn-sm" onclick="askAI('¿Qué partidos van ganando Senado y Cámara Colombia 2026 y cuántas curules llevan?')">🏆 ¿Quién va ganando?</button>
+        <button class="btn btn-g btn-sm" onclick="askAI('¿Cómo van los resultados de la Cámara de Representantes en el Huila Colombia 2026? ¿Qué candidatos lideran?')">🏔️ Cámara Huila</button>
+        <button class="btn btn-g btn-sm" onclick="askAI('Explica el sistema D\'Hondt para asignar curules en Colombia con un ejemplo del Senado 2026.')">📐 Sistema D'Hondt</button>
+        <button class="btn btn-g btn-sm" onclick="askAI('Compara resultados del Senado y Cámara en el Huila entre 2022 y 2026.')">📊 2022 vs 2026</button>
       </div>
-      <div style="display:flex;gap:7px">
-        <input type="text" id="ai-in" placeholder="Pregunta sobre el Senado 2026, el Huila, curules, resultados..."
-          style="flex:1;background:#fff;border:1px solid var(--bd2);color:var(--tx);padding:9px 13px;border-radius:5px;font-family:'Lato',sans-serif;font-size:.8rem;outline:none"
+      <div style="display:flex;gap:7px;align-items:stretch">
+        <input type="text" id="ai-in" placeholder="Pregunta sobre Senado, Cámara, Huila, curules..."
+          style="flex:1;background:#fff;border:1px solid var(--bd2);color:var(--tx);padding:10px 13px;border-radius:6px;font-family:'Lato',sans-serif;font-size:.81rem;outline:none;min-width:0"
           onkeydown="if(event.key==='Enter')sendAI()">
         <button class="btn btn-y" id="btn-ask" onclick="sendAI()">Analizar →</button>
       </div>
@@ -329,25 +553,40 @@ iframe{width:100%;height:580px;border:none;background:#fff}
 
 <!-- ══════ SCRIPT ══════ -->
 <script>
-// ─── DATOS ───
 const DPTOS=[
-  {c:'05',n:'Antioquia',k:'Medellín'},{c:'08',n:'Atlántico',k:'Barranquilla'},
-  {c:'11',n:'Bogotá D.C.',k:'Bogotá'},{c:'13',n:'Bolívar',k:'Cartagena'},
-  {c:'15',n:'Boyacá',k:'Tunja'},{c:'17',n:'Caldas',k:'Manizales'},
-  {c:'18',n:'Caquetá',k:'Florencia'},{c:'19',n:'Cauca',k:'Popayán'},
-  {c:'20',n:'Cesar',k:'Valledupar'},{c:'23',n:'Córdoba',k:'Montería'},
-  {c:'25',n:'Cundinamarca',k:'Bogotá'},{c:'27',n:'Chocó',k:'Quibdó'},
-  {c:'41',n:'Huila',k:'Neiva',star:true},{c:'44',n:'La Guajira',k:'Riohacha'},
-  {c:'47',n:'Magdalena',k:'Santa Marta'},{c:'50',n:'Meta',k:'Villavicencio'},
-  {c:'52',n:'Nariño',k:'Pasto'},{c:'54',n:'N. Santander',k:'Cúcuta'},
-  {c:'63',n:'Quindío',k:'Armenia'},{c:'66',n:'Risaralda',k:'Pereira'},
-  {c:'68',n:'Santander',k:'Bucaramanga'},{c:'70',n:'Sucre',k:'Sincelejo'},
-  {c:'73',n:'Tolima',k:'Ibagué'},{c:'76',n:'Valle del Cauca',k:'Cali'},
-  {c:'81',n:'Arauca',k:'Arauca'},{c:'85',n:'Casanare',k:'Yopal'},
-  {c:'86',n:'Putumayo',k:'Mocoa'},{c:'88',n:'San Andrés',k:'San Andrés'},
-  {c:'91',n:'Amazonas',k:'Leticia'},{c:'94',n:'Guainía',k:'Inírida'},
-  {c:'95',n:'Guaviare',k:'San José'},{c:'97',n:'Vaupés',k:'Mitú'},
-  {c:'99',n:'Vichada',k:'Pto. Carreño'}
+  {c:'05',n:'Antioquia',k:'Medellín',cur:17},
+  {c:'08',n:'Atlántico',k:'Barranquilla',cur:7},
+  {c:'11',n:'Bogotá D.C.',k:'Bogotá',cur:18},
+  {c:'13',n:'Bolívar',k:'Cartagena',cur:7},
+  {c:'15',n:'Boyacá',k:'Tunja',cur:6},
+  {c:'17',n:'Caldas',k:'Manizales',cur:4},
+  {c:'18',n:'Caquetá',k:'Florencia',cur:2},
+  {c:'19',n:'Cauca',k:'Popayán',cur:4},
+  {c:'20',n:'Cesar',k:'Valledupar',cur:4},
+  {c:'23',n:'Córdoba',k:'Montería',cur:5},
+  {c:'25',n:'Cundinamarca',k:'Bogotá',cur:7},
+  {c:'27',n:'Chocó',k:'Quibdó',cur:2},
+  {c:'41',n:'Huila',k:'Neiva',cur:3,star:true},
+  {c:'44',n:'La Guajira',k:'Riohacha',cur:3},
+  {c:'47',n:'Magdalena',k:'Santa Marta',cur:5},
+  {c:'50',n:'Meta',k:'Villavicencio',cur:3},
+  {c:'52',n:'Nariño',k:'Pasto',cur:5},
+  {c:'54',n:'N. Santander',k:'Cúcuta',cur:5},
+  {c:'63',n:'Quindío',k:'Armenia',cur:3},
+  {c:'66',n:'Risaralda',k:'Pereira',cur:4},
+  {c:'68',n:'Santander',k:'Bucaramanga',cur:7},
+  {c:'70',n:'Sucre',k:'Sincelejo',cur:3},
+  {c:'73',n:'Tolima',k:'Ibagué',cur:5},
+  {c:'76',n:'Valle del Cauca',k:'Cali',cur:13},
+  {c:'81',n:'Arauca',k:'Arauca',cur:2},
+  {c:'85',n:'Casanare',k:'Yopal',cur:2},
+  {c:'86',n:'Putumayo',k:'Mocoa',cur:2},
+  {c:'88',n:'San Andrés',k:'S. Andrés',cur:2},
+  {c:'91',n:'Amazonas',k:'Leticia',cur:2},
+  {c:'94',n:'Guainía',k:'Inírida',cur:2},
+  {c:'95',n:'Guaviare',k:'San José',cur:2},
+  {c:'97',n:'Vaupés',k:'Mitú',cur:2},
+  {c:'99',n:'Vichada',k:'Pto. Carreño',cur:2}
 ];
 
 const MUNIS=[
@@ -361,229 +600,249 @@ const MUNIS=[
   {n:'Tesalia'},{n:'Timaná'},{n:'Villavieja'},{n:'Yaguará'}
 ];
 
+const CIRC={
+  nacional:{cod:'0',nom:'Cámara Nacional'},
+  huila:{cod:'41',nom:'Cámara — Huila'},
+  antioquia:{cod:'05',nom:'Cámara — Antioquia'},
+  bogota:{cod:'11',nom:'Cámara — Bogotá'},
+  valle:{cod:'76',nom:'Cámara — Valle del Cauca'}
+};
+
 const COLORES={
   'LIBERAL':'#e63946','CONSERVADOR':'#2196f3','PACTO':'#2d9954',
-  'CAMBIO RADICAL':'#f4a261','CENTRO DEMOCR':'#4c78a8','PARTIDO DE LA U':'#ff9f1c',
-  'UNIÓN POR LA GENTE':'#ff9f1c','ALIANZA VERDE':'#56c596','VERDE':'#56c596',
-  'CENTRO ESPERANZA':'#1cc5dc','MIRA':'#9b5de5','COMUNES':'#aaa',
-  'MAIS':'#00d68f','AICO':'#7fc97f','DEFAULT':'#5a6a8a'
+  'CAMBIO RADICAL':'#f4a261','CENTRO DEMOCR':'#4c78a8',
+  'PARTIDO DE LA U':'#ff9f1c','UNIÓN POR LA GENTE':'#ff9f1c',
+  'ALIANZA VERDE':'#56c596','VERDE':'#56c596',
+  'CENTRO ESPERANZA':'#1cc5dc','MIRA':'#9b5de5','COMUNES':'#999',
+  'MAIS':'#00a86b','AICO':'#5aaa6a','DEFAULT':'#7a8a9a'
 };
-function clr(n){const u=(n||'').toUpperCase();for(const[k,v] of Object.entries(COLORES)){if(u.includes(k))return v}return COLORES.DEFAULT}
+function clr(n){const u=(n||'').toUpperCase();for(const[k,v] of Object.entries(COLORES))if(u.includes(k))return v;return COLORES.DEFAULT}
 
-let lastData=null;
-let autoTimer=null;
+const TABS=['senado','camara','dptos','huila','munis','visor','ia'];
+let circActual='nacional', lastS=null, lastC=null, autoTimer=null;
 
-// ─── RELOJ ───
+// RELOJ
 function tick(){
   const d=new Date();
   const t=[d.getHours(),d.getMinutes(),d.getSeconds()].map(x=>String(x).padStart(2,'0')).join(':');
   const f=d.toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric'});
-  document.getElementById('clk').innerHTML=`${t}<br>${f}`;
-  if(d.getHours()>=16 && !autoTimer){
-    autoTimer=setInterval(()=>{
-      if(document.getElementById('pg-senado').classList.contains('on')) cargarSenado();
-    },5*60*1000);
-  }
+  const el=document.getElementById('clk'); if(el) el.innerHTML=t+'<br>'+f;
+  if(d.getHours()>=16&&!autoTimer) autoTimer=setInterval(()=>{
+    const pg=document.querySelector('.pg.on');
+    if(pg?.id==='pg-senado') cargar('senado');
+    if(pg?.id==='pg-camara') cargar('camara');
+  },5*60*1000);
 }
 setInterval(tick,1000); tick();
 
-// ─── TABS ───
+// DRAWER
+function toggleDrawer(){
+  document.getElementById('hambBtn').classList.toggle('open');
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeDrawer(){
+  document.getElementById('hambBtn').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// TABS
 function goTab(id,btn){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
   document.getElementById('pg-'+id).classList.add('on');
   if(btn) btn.classList.add('on');
+  TABS.forEach(t=>{const el=document.getElementById('mi-'+t);if(el)el.classList.toggle('on',t===id)});
 }
 
-// ─── RENDER DPTOS ───
-function initDptos(){
-  document.getElementById('dg').innerHTML=DPTOS.map(d=>`
-    <div class="dt ${d.star?'star':''}" onclick="window.open('https://resultadospreccongreso.registraduria.gov.co/senado/0','_blank')">
-      <div class="dn">${d.star?'⭐ ':''}${d.n}</div>
-      <div class="dc">${d.k}</div>
-      <div class="db"><div class="dbf" style="width:0%;background:${d.star?'var(--gr)':'var(--y)'}"></div></div>
-    </div>`).join('');
+// CIRC CÁMARA
+function switchCirc(circ,btn){
+  circActual=circ;
+  document.querySelectorAll('.pill').forEach(b=>b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  const info=CIRC[circ];
+  document.getElementById('c-tit').textContent='Resultados — '+info.nom;
+  document.getElementById('c-bdg').textContent='CIRC. '+info.cod;
+  document.getElementById('c-body').innerHTML=`<div class="stbox"><div class="sticon">🏟️</div>
+    <div class="sttit">${info.nom}</div>
+    <div class="stsub">Presiona "Cargar Resultados" para obtener datos.</div></div>`;
 }
 
-// ─── RENDER MUNICIPIOS ───
-function initMunis(){
-  document.getElementById('mg').innerHTML=MUNIS.map(m=>`
-    <div class="mt ${m.cap?'cap':''}" onclick="window.open('https://resultadospreccongreso.registraduria.gov.co/senado/0','_blank')">
-      <div class="mname">${m.cap?'⭐ ':''}${m.n}</div>
-      <div class="minfo"><span class="mgo">Ver resultados →</span><span class="mtag">${m.cap?'Capital':'Huila'}</span></div>
-    </div>`).join('');
-}
+// FETCH VIA CLAUDE
+async function fetchClaude(corp,circ){
+  const ah=new Date(); const activo=ah.getHours()>=16;
+  const hora=ah.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  const url=corp==='senado'
+    ?'resultadospreccongreso.registraduria.gov.co/senado/0'
+    :'resultadospreccongreso.registraduria.gov.co/camara/'+(circ||'0');
+  const nomCorp=corp==='senado'?'SENADO':'CÁMARA DE REPRESENTANTES'+(circ&&circ!=='0'?' (circ. '+circ+')':'');
 
-// ─── CARGA SENADO ───
-async function cargarSenado(){
-  const btn=document.getElementById('btn-cargar');
-  btn.disabled=true; btn.textContent='⟳ Cargando...';
-  document.getElementById('senado-body').innerHTML='<div class="stbox"><div class="spin"></div><div class="sttit">Conectando con Registraduría...</div><div class="stsub">Obteniendo boletín de preconteo del Senado 2026.</div></div>';
-
-  // Intentar fetch directo al preconteo (puede funcionar sin CORS en algunos contextos)
-  let datos=null;
-
-  try{
-    const ctrl=new AbortController();
-    setTimeout(()=>ctrl.abort(),6000);
-    const r=await fetch('https://resultadospreccongreso.registraduria.gov.co/senado/0',{signal:ctrl.signal,mode:'no-cors'});
-    // no-cors devuelve opaque, no podemos leer el body
-  }catch(e){}
-
-  // Usar Claude AI con web_search para obtener datos reales
-  datos=await fetchViaClaude();
-
-  if(datos){
-    lastData=datos;
-    renderSenado(datos);
-  } else {
-    mostrarEspera();
-  }
-
-  btn.disabled=false; btn.textContent='⟳ Actualizar';
-}
-
-async function fetchViaClaude(){
-  const ahora=new Date();
-  const preconteo=ahora.getHours()>=16;
-  const hora=ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-
-  const prompt=preconteo
-    ?`Busca AHORA MISMO los resultados del PRECONTEO del SENADO Colombia 2026 del 8 de marzo. 
-Busca en: resultadospreccongreso.registraduria.gov.co, eltiempo.com elecciones 2026, semana.com elecciones, elespectador.com elecciones 2026.
-Extrae el boletín número, % mesas informadas, y lista de partidos con votos, porcentajes y curules.
-Responde SOLO JSON sin texto adicional ni backticks:
+  const prompt=activo
+    ?`Busca AHORA los resultados del PRECONTEO de ${nomCorp} Colombia 2026 del 8 de marzo.
+Fuentes: ${url}, eltiempo.com elecciones 2026, semana.com, elespectador.com.
+Extrae: número boletín, % mesas informadas, hora, lista partidos con votos/porcentajes/curules.
+Responde ÚNICAMENTE JSON sin texto ni backticks:
 {"boletin":N,"mesas_pct":XX.X,"hora":"HH:MM","partidos":[{"nombre":"NOMBRE COMPLETO","votos":N,"pct":X.XX,"curules":N}],"fuente":"URL"}`
-    :`El preconteo del Senado Colombia 2026 aún NO ha iniciado (son las ${hora}, inicia a las 4:00 PM).
-Responde SOLO JSON:
-{"boletin":0,"mesas_pct":0,"hora":"${hora}","partidos":[],"estado":"esperando","mensaje":"El preconteo del Senado inicia a las 4:00 PM cuando cierran las urnas. Son las ${hora}.","fuente":"registraduria.gov.co"}`;
+    :`Preconteo ${nomCorp} Colombia 2026 aún NO inicia (son las ${hora}, empieza 4:00 PM).
+Responde SOLO JSON: {"boletin":0,"mesas_pct":0,"hora":"${hora}","partidos":[],"mensaje":"El preconteo inicia a las 4:00 PM. Son las ${hora}."}`;
 
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        tools:[{type:'web_search_20250305',name:'web_search'}],
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    const d=await res.json();
-    const txt=d.content.filter(b=>b.type==='text').map(b=>b.text).join('');
-    const m=txt.match(/\{[\s\S]*\}/);
-    if(m) return JSON.parse(m[0]);
-  }catch(e){console.error(e)}
-  return null;
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,
+      tools:[{type:'web_search_20250305',name:'web_search'}],
+      messages:[{role:'user',content:prompt}]})
+  });
+  const data=await res.json();
+  const txt=data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+  const m=txt.match(/\{[\s\S]*\}/); if(m) return JSON.parse(m[0]); return null;
 }
 
-function renderSenado(d){
-  // Stats
-  const pct=d.mesas_pct||0;
-  document.getElementById('sv-mesas').textContent=pct>0?pct.toFixed(2)+'%':'—';
-  document.getElementById('ss-mesas').textContent=pct>0?'mesas informadas':'Sin datos aún';
-  document.getElementById('sv-bol').textContent=d.boletin>0?'#'+d.boletin:'—';
-  document.getElementById('ss-bol').textContent=d.hora||'—';
-  document.getElementById('av-pct').textContent=pct>0?pct.toFixed(2)+'%':'0%';
-  document.getElementById('av-fill').style.width=Math.min(pct,100)+'%';
-  const bdg=document.getElementById('bol-bdg');
-  if(d.boletin>0){bdg.textContent=`BOLETÍN #${d.boletin} · ${pct.toFixed(1)}% MESAS`;bdg.className='bdg bdg-g';}
-  document.getElementById('last-upd').textContent='Actualizado: '+new Date().toLocaleTimeString('es-CO');
-
-  if(!d.partidos||d.partidos.length===0){mostrarEspera(d.mensaje);return;}
-
-  const ps=[...d.partidos].sort((a,b)=>(b.pct||0)-(a.pct||0));
-  const mx=ps[0]?.pct||1;
-
-  document.getElementById('senado-body').innerHTML=ps.map((p,i)=>{
-    const c=clr(p.nombre);
-    const ok=(p.pct||0)>=3;
-    return `<div class="pr">
-      <span class="pn">${i+1}</span>
+// RENDER PARTIDOS
+function renderPs(ps,id){
+  if(!ps||!ps.length) return false;
+  const sorted=[...ps].sort((a,b)=>(b.pct||0)-(a.pct||0));
+  const mx=sorted[0]?.pct||1;
+  document.getElementById(id).innerHTML=sorted.map((p,i)=>{
+    const c=clr(p.nombre), ok=(p.pct||0)>=3;
+    return `<div class="pr"><span class="pn">${i+1}</span>
       <div class="pdot" style="background:${c}"></div>
       <div class="pi">
         <div class="pname">${p.nombre}${ok?' ✓':''}</div>
-        <div class="pvotes">${p.votos?(p.votos).toLocaleString('es-CO')+' votos · ':''}${(p.pct||0).toFixed(2)}%</div>
+        <div class="pvotes">${p.votos?Number(p.votos).toLocaleString('es-CO')+' votos · ':''}${(p.pct||0).toFixed(2)}%</div>
       </div>
-      <div class="pbar">
-        <div class="pbar-bg"><div class="pbar-fill" style="width:${Math.min((p.pct/mx)*100,100)}%;background:${c}"></div></div>
-        <div class="ppct">${(p.pct||0).toFixed(2)}%</div>
-      </div>
-      <div class="pcurl">${p.curules||'—'}</div>
-    </div>`;
-  }).join('');
-
-  // Huila tab top 5
-  const el=document.getElementById('huila-senado');
-  el.innerHTML=ps.slice(0,5).map((p,i)=>{
-    const c=clr(p.nombre);
-    return `<div class="pr"><span class="pn">${i+1}</span><div class="pdot" style="background:${c}"></div>
-    <div class="pi"><div class="pname">${p.nombre}</div><div class="pvotes">${(p.pct||0).toFixed(2)}% nacional</div></div>
-    <div class="pbar"><div class="pbar-bg"><div class="pbar-fill" style="width:${(p.pct/mx)*100}%;background:${c}"></div></div></div>
-    <div class="pcurl">${p.curules||'—'}</div></div>`;
-  }).join('');
+      <div class="pbar"><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.min((p.pct/mx)*100,100)}%;background:${c}"></div></div>
+      <div class="ppct">${(p.pct||0).toFixed(2)}%</div></div>
+      <div class="pcurl">${p.curules!=null?p.curules:'—'}</div></div>`;
+  }).join(''); return true;
 }
 
-function mostrarEspera(msg){
-  const ahora=new Date();
-  document.getElementById('senado-body').innerHTML=`
-    <div class="stbox">
-      <div class="sticon">${ahora.getHours()>=16?'📡':'⏰'}</div>
-      <div class="sttit">${ahora.getHours()>=16?'Preconteo en curso':'Esperando las 4:00 PM'}</div>
-      <div class="stsub">${msg||'El preconteo del Senado inicia cuando cierren las urnas a las <strong style="color:#a06800">4:00 PM</strong>.'}
-      <br><br><a class="btn btn-y btn-sm" href="https://resultadospreccongreso.registraduria.gov.co/senado/0" target="_blank" style="margin:0 auto;display:inline-flex">📊 Ver en Registraduría →</a></div>
-    </div>`;
+// CARGAR
+async function cargar(corp){
+  const btnId=corp==='senado'?'btn-s':'btn-c';
+  const btn=document.getElementById(btnId);
+  btn.disabled=true; btn.textContent='⟳ Cargando...';
+  const bodyId=corp==='senado'?'s-body':'c-body';
+  document.getElementById(bodyId).innerHTML='<div class="stbox"><div class="spin"></div><div class="sttit">Conectando con Registraduría...</div><div class="stsub">Obteniendo datos del preconteo.</div></div>';
+
+  try{
+    const circ=corp==='camara'?CIRC[circActual].cod:null;
+    const d=await fetchClaude(corp,circ);
+    if(d){
+      const pct=d.mesas_pct||0;
+      if(corp==='senado'){
+        lastS=d;
+        document.getElementById('s-m').textContent=pct>0?pct.toFixed(2)+'%':'—';
+        document.getElementById('s-ms').textContent=pct>0?'mesas informadas':'Sin datos';
+        document.getElementById('s-b').textContent=d.boletin>0?'#'+d.boletin:'—';
+        document.getElementById('s-bs').textContent=d.hora||'—';
+        document.getElementById('s-pct').textContent=pct>0?pct.toFixed(2)+'%':'0%';
+        document.getElementById('s-fill').style.width=Math.min(pct,100)+'%';
+        document.getElementById('s-upd').textContent='Act: '+new Date().toLocaleTimeString('es-CO');
+        if(d.boletin>0){const b=document.getElementById('s-bdg');b.textContent=`BOL. #${d.boletin} · ${pct.toFixed(1)}%`;b.className='bdg bdg-g';}
+        if(!renderPs(d.partidos,'s-body')) espera('s-body',d.mensaje,'senado');
+        // Sincronizar huila senado top5
+        if(d.partidos?.length){
+          const s=[...d.partidos].sort((a,b)=>(b.pct||0)-(a.pct||0)); const mx=s[0]?.pct||1;
+          document.getElementById('h-senado').innerHTML=s.slice(0,5).map((p,i)=>{
+            const c=clr(p.nombre);
+            return `<div class="pr"><span class="pn">${i+1}</span><div class="pdot" style="background:${c}"></div>
+            <div class="pi"><div class="pname">${p.nombre}</div><div class="pvotes">${(p.pct||0).toFixed(2)}% nac.</div></div>
+            <div class="pbar"><div class="pbar-bg"><div class="pbar-fill" style="width:${(p.pct/mx)*100}%;background:${c}"></div></div></div>
+            <div class="pcurl">${p.curules!=null?p.curules:'—'}</div></div>`;
+          }).join('');
+        }
+      } else {
+        lastC=d;
+        document.getElementById('c-m').textContent=pct>0?pct.toFixed(2)+'%':'—';
+        document.getElementById('c-ms').textContent=pct>0?'mesas informadas':'Sin datos';
+        document.getElementById('c-b').textContent=d.boletin>0?'#'+d.boletin:'—';
+        document.getElementById('c-bs').textContent=d.hora||'—';
+        document.getElementById('c-pct').textContent=pct>0?pct.toFixed(2)+'%':'0%';
+        document.getElementById('c-fill').style.width=Math.min(pct,100)+'%';
+        document.getElementById('c-upd').textContent='Act: '+new Date().toLocaleTimeString('es-CO');
+        if(d.boletin>0){const b=document.getElementById('c-bdg');b.textContent=`BOL. #${d.boletin} · ${pct.toFixed(1)}%`;b.className='bdg bdg-g';}
+        if(!renderPs(d.partidos,'c-body')) espera('c-body',d.mensaje,'camara');
+        // Sincronizar huila cámara si circ es huila
+        if(d.partidos?.length&&circActual==='huila'){
+          const s=[...d.partidos].sort((a,b)=>(b.pct||0)-(a.pct||0)); const mx=s[0]?.pct||1;
+          document.getElementById('h-camara').innerHTML=s.slice(0,4).map((p,i)=>{
+            const c=clr(p.nombre);
+            return `<div class="pr"><span class="pn">${i+1}</span><div class="pdot" style="background:${c}"></div>
+            <div class="pi"><div class="pname">${p.nombre}</div><div class="pvotes">${(p.pct||0).toFixed(2)}%</div></div>
+            <div class="pbar"><div class="pbar-bg"><div class="pbar-fill" style="width:${(p.pct/mx)*100}%;background:${c}"></div></div></div>
+            <div class="pcurl">${p.curules!=null?p.curules:'—'}</div></div>`;
+          }).join('');
+        }
+      }
+    } else { espera(bodyId,null,corp); }
+  } catch(e){ espera(bodyId,'Error de conexión. Intenta de nuevo.',corp); }
+  btn.disabled=false; btn.textContent='⟳ Actualizar';
 }
 
-// ─── VISOR ───
+function espera(id,msg,corp){
+  const ah=new Date(); const url=corp==='senado'
+    ?'https://resultadospreccongreso.registraduria.gov.co/senado/0'
+    :'https://resultadospreccongreso.registraduria.gov.co/camara/'+CIRC[circActual].cod;
+  document.getElementById(id).innerHTML=`
+    <div class="stbox"><div class="sticon">${ah.getHours()>=16?'📡':'⏰'}</div>
+    <div class="sttit">${ah.getHours()>=16?'Preconteo en curso':'Esperando las 4:00 PM'}</div>
+    <div class="stsub">${msg||'El preconteo inicia cuando cierran las urnas a las <strong style="color:#a06800">4:00 PM</strong>.'}
+    <br><br><a class="btn btn-y btn-sm" href="${url}" target="_blank" style="margin:0 auto;display:inline-flex">📊 Ver en Registraduría →</a>
+    </div></div>`;
+}
+
+// DPTOS
+function initDptos(){
+  document.getElementById('dg').innerHTML=DPTOS.map(d=>`
+    <div class="dt ${d.star?'star':''}" onclick="window.open('https://resultadospreccongreso.registraduria.gov.co/camara/${d.c}','_blank')" title="${d.n} · ${d.cur} curul${d.cur!==1?'es':''}">
+      <div class="dn">${d.star?'⭐ ':''}${d.n}</div>
+      <div class="dc">${d.k} · ${d.cur} cur.</div>
+      <div class="db"><div class="dbf" style="width:0%;background:${d.star?'var(--gr)':'var(--b)'}"></div></div>
+    </div>`).join('');
+}
+
+// MUNICIPIOS
+function initMunis(){
+  document.getElementById('mg').innerHTML=MUNIS.map(m=>`
+    <div class="mt ${m.cap?'cap':''}" onclick="window.open('https://resultadospreccongreso.registraduria.gov.co/camara/41','_blank')">
+      <div class="mname">${m.cap?'⭐ ':''}${m.n}</div>
+      <div class="minfo"><span class="mgo">Cámara →</span><span class="mtag">${m.cap?'Capital':'Huila'}</span></div>
+    </div>`).join('');
+}
+
+// VISOR
 function updVisor(){
   const s=document.getElementById('vis-sel');
   document.getElementById('frm').src=s.value;
-  document.getElementById('if-tit').textContent=s.options[s.selectedIndex].text;
+  document.getElementById('if-tit').textContent=s.options[s.selectedIndex].text.replace(/^.\s/,'');
 }
 
-// ─── IA ───
+// IA
 function askAI(q){document.getElementById('ai-in').value=q;sendAI();}
-
 async function sendAI(){
-  const inp=document.getElementById('ai-in');
-  const box=document.getElementById('ai-box');
-  const btn=document.getElementById('btn-ask');
-  const q=inp.value.trim();
-  if(!q)return;
-  btn.disabled=true;btn.textContent='Analizando...';
-  box.className='ai-box dim';box.textContent='🤖 Buscando información en tiempo real...';
-
+  const inp=document.getElementById('ai-in'); const box=document.getElementById('ai-box');
+  const btn=document.getElementById('btn-ask'); const q=inp.value.trim(); if(!q)return;
+  btn.disabled=true; btn.textContent='Analizando...';
+  box.className='ai-box dim'; box.textContent='🤖 Buscando información en tiempo real...';
   let ctx='';
-  if(lastData&&lastData.partidos&&lastData.partidos.length>0){
-    ctx=`\nDatos actuales del preconteo (Boletín #${lastData.boletin}, ${lastData.mesas_pct}% mesas):\n`
-      +lastData.partidos.map(p=>`- ${p.nombre}: ${p.pct}% (${p.curules} curules)`).join('\n');
-  }
-
+  if(lastS?.partidos?.length) ctx+=`\nSenado (Bol.#${lastS.boletin}, ${lastS.mesas_pct}% mesas):\n`+lastS.partidos.map(p=>`- ${p.nombre}: ${p.pct}% (${p.curules} curules)`).join('\n');
+  if(lastC?.partidos?.length) ctx+=`\nCámara ${CIRC[circActual].nom} (Bol.#${lastC.boletin}, ${lastC.mesas_pct}% mesas):\n`+lastC.partidos.map(p=>`- ${p.nombre}: ${p.pct}% (${p.curules} curules)`).join('\n');
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,
         tools:[{type:'web_search_20250305',name:'web_search'}],
-        messages:[{role:'user',content:`Eres analista electoral experto en Colombia. Responde en español, claro y conciso. Elecciones Congreso Colombia 8 marzo 2026. Enfoque: Senado y Huila.${ctx}\n\nPregunta: ${q}`}]
-      })
+        messages:[{role:'user',content:`Eres analista electoral experto en Colombia. Responde en español claro y conciso. Elecciones Congreso Colombia 8 marzo 2026. Enfoque: Senado, Cámara y Huila.${ctx}\n\nPregunta: ${q}`}]})
     });
     const d=await res.json();
-    const r=d.content.filter(b=>b.type==='text').map(b=>b.text).join('\n');
-    box.className='ai-box';box.textContent=r||'Sin respuesta.';
-  }catch(e){
-    box.className='ai-box';box.textContent='❌ Error de conexión con el servicio IA.';
-  }
-  btn.disabled=false;btn.textContent='Analizar →';
+    box.className='ai-box'; box.textContent=d.content.filter(b=>b.type==='text').map(b=>b.text).join('\n')||'Sin respuesta.';
+  } catch(e){ box.className='ai-box'; box.textContent='❌ Error de conexión con el servicio IA.'; }
+  btn.disabled=false; btn.textContent='Analizar →';
 }
 
-// ─── INIT ───
-initDptos();
-initMunis();
-if(new Date().getHours()>=16) setTimeout(cargarSenado,600);
+// INIT
+initDptos(); initMunis();
+if(new Date().getHours()>=16) setTimeout(()=>cargar('senado'),700);
 </script>
 </body>
 </html>
